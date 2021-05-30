@@ -103,3 +103,149 @@ ios 디렉터리의 Profile은 A/D 디렉터리의 build.greadle에 해당하는
 build.gradle 파일과 비슷하게 node_moudles 디렉토리 native_modules 설치 의미
 
 - R/N 파일 만들 시 npx pod-install 자동 실행
+
+### 2.2 JSX 구문 탐구
+
+- JSX = JavaScript + XML
+
+- XML
+
+  - 태그 이름을 자유롭게 지을 수 있음
+  - eXtensive Markup Langage
+  - 자바스크립와 XML 구문을 결합해 사용하는 코드를 JSX라 부름
+
+- JSX
+
+  - Javascript + XML
+  - XML에 자바스크립트를 연결할 용도로 만든 구문
+  - 자바스크립트를 확장한다는 의미
+  - 페이스북 팀에서 JSX 구문이 마치 표준 바사크립트 문법에 포함된 것 처럼 동작하도록 설계
+  - ESNext 자바스크립트 컴파일러인 바벨(babel)이 플러그인 구조로 동작하기 때문에 가능
+
+- R/N -> metro-react-native-babel-preset
+
+### 마크업 언어 용어
+
+HTML 마크업 언어는 XML 마크업 언어의 부분 집합
+
+- XML 태크나 속성 마음대로 확장 가능
+- But HTMl 불가
+
+> 마크업 언어 문법
+
+    1. <> 꺽쇠 기호로 감싼 시작태그를 만듬
+    2. 끝 마침은 </div> 꺽쇠를 앞에 둠
+    3. 시작 태그에는 id, style 같은 속성을 기술가능
+    4. 속성 값은 항상 작은 따옴표나 큰 따옴표로 감싼다.
+    5. 시작 태그와 끝 태그 사이에는 자식요소 삽입 가능
+        자식요소는 XML요소나 문자열
+    6. 스스로 닫는 Self Closing tag도 존재
+
+### React.createElement와 JSX 구문과의 관계
+
+React.createElement는 컴포넌트를 가상 DOM 객체로 만듬
+컴포넌트는 여러개의 속성과 하나 이상의 자식 컴포넌트를 가질 수 있음
+
+```js
+<Text>Hello World!<Text>
+```
+
+- XML 파서가 React.createElement(Text, null, 'Hello World!')로 변환을
+- 하여서 자바스크립트가 이를 이해할 수 있다.
+- @babel/plugin-transform-react-jsx
+
+### 중괄호의 의미
+
+JSX는 XML 마크업 구조에서 중괄호({})를 사용하여 자바스크립트 코드를 감싸는 형태의 문법을 제공
+
+- 자바스크립의 변숫값을 XML 구문안에 표시 가능
+
+```js
+const hello = "hi";
+<Text>{hello}</Text>;
+```
+
+- JSX 구문은 XML 구문을 따르기 때문에 위를 그대로 사용가능하다.
+- JSX 구문 자체를 변수에 담을 수 있음
+- 또는 변수에 담는 과정을 생략하고 함수의 반환값으로 사용가능
+
+- JSX 구문의 자바스크립트 코드는 반드시 return 키워드 없이 값을 반환해야 함
+- return 키워드 없이 값을 반환하는 구문을 타입스크립트나 ESNext 자바스크립트 에서는
+- **표현식**이라고 부른다.
+
+### 표현식과 실행문 그리고 JSX
+
+코드를 실행 시키다 보면 '식이 필요함' 같은 오류 나옴
+이는 표현식을 의미한다.
+
+- 표현식 : return 키워드 없이 어떤 값을 반환하는 코드를 말함
+
+  - 1+1 같은 코드 조각
+  - 'Hello World!' 같은 **값으로 평가하는 어떤 것을 의미**
+
+- 실행문 : 표현식의 반대
+
+  - if 문은 실행문이기 때문에 JSX 코드 안에서는 사용이 불가
+  - switch-case 또한 불가함
+
+- 실행문에서의 console.log
+  - 가상 DOM 객체를 반환하지 않아 오류가 생김
+  - console.log -> React.createElement로의 변환이 불가하기 때문에 생김
+
+### 조건에 따라 분기되는 JSX문 작성
+
+1. if문을 JSX문 밖에 구현하여 문제 해결
+
+```javascript
+export default function App() {
+  const isLoading = true;
+  if (isLoading) {
+    return (
+      <SafeAreaView>
+        <Text>Hellow Jsx</Text>
+      </SafeAreaView>
+    );
+  }
+}
+```
+
+2. 조건문을 단축 평가 코드로 바꾸기
+
+```javascript
+export default function App() {
+  const isLoading = true;
+
+  return (
+    <SafeAreaView>
+      {isLoading && <Text>Hellow Jsx</Text>}
+      {!isLoading && <Text>Not Render</Text>}
+    </SafeAreaView>
+  );
+}
+```
+
+- undefined
+  - 리액트에서는 undefined가 유효한 컴포넌트이므로 작성가능
+  - undefined가 반환되는 JSX 코드는 단순히 무시하면 됨
+
+3. JSX 문을 변수에 담아서 해결
+
+```javascript
+export default function App() {
+  const isLoading = true;
+  const children = isLoading ? (
+    <Text>Loading...</Text>
+  ) : (
+    <Text>Hello JSX!</Text>
+  );
+  return <SafeAreaView>{children}</SafeAreaView>;
+}
+```
+
+### 배열과 JSX 구문
+
+배열에 SafeAreaView의 자식 컴포넌트로 렌더링
+
+- 배열 변수에 담긴 JSX문은 반드시 부모 컴포넌트의 자식 컴포넌트 형태로 만들어야 함
+- JSX문에서 여러 개의 자식 컴포넌트가 있을 때 반드시 XML 작성 원칙을 준수해야함
+- 꼭 부모 요소가 존재해야함!!!
