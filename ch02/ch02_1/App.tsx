@@ -1,7 +1,13 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Text, SafeAreaView} from 'react-native';
 
 export default function App() {
-  const textElement = React.createElement(Text, null, 'hello world');
-  return textElement;
+  const isLoading = true;
+
+  return (
+    <SafeAreaView>
+      {isLoading && <Text>Hellow Jsx</Text>}
+      {!isLoading && <Text>Not Render</Text>}
+    </SafeAreaView>
+  );
 }
