@@ -7,3 +7,7 @@ Do it 리액트 네이티브 앱 프로그래밍-전예홍
 1. xocde
 1. sudo gem install cocoapods
 1. brew install watchman
+
+### ch02
+
+- npx react-native init ch02_1 --template react-native-template-typescript
