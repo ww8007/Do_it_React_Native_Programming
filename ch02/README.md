@@ -341,3 +341,7 @@ Alert과 같은 API 두가지가 있음
 - 여러개의 Person 컴포넌트 생성 후 person 속성 전달 시 화면에서 모두 볼 수 없게 됨
 - 이를 해결하기 위해서 ScrollView 사용
 
+### 컴포넌트의 이벤트 속성 이해하기
+
+- npx react-native init ch02_4 --template react-native-template-typescript
+- npx react-native init ch02_4 --template typescript
