@@ -1,15 +1,16 @@
-import React from 'react';
-import {SafeAreaView} from 'react-native';
-import {ArrowComponet} from './src/screens/ArrowComponet';
+import React, {Children} from 'react';
+import {PointPropType, SafeAreaView, ScrollView} from 'react-native';
 import Person from './src/screens/Person';
 import * as D from './src/data';
+
 export default function App() {
-  const person = D.createRandomPerson();
-  React.createContext;
+  const people = D.makeArray(100).map(D.createRandomPerson);
+
   return (
     <SafeAreaView>
-      <ArrowComponet />
-      <Person person={person} />
+      <ScrollView>
+        <Person person={people} />
+      </ScrollView>
     </SafeAreaView>
   );
 }
