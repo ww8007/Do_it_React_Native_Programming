@@ -42,4 +42,33 @@ npx react-native init ch03_1 --template react-native-template-typescript
 - 객체로 만들어서 한번에 전달하는 것이 목적 중 하나
 - 네이티브 모듈은 전달받은 스타일 객체를 자신의 로컬 저장소에 저장
 - 보관된 스타일 객체를 참조하므로 불필요한 자바스크립트 엔진 스레드와 네이티브 UI 스레드 간의 데이터 전송이 일어나지 않기 때문에 렌더링 속도가 빨라지는 장점을 가지고 있음
+
+> 인라인 스타일과 StyleSheet 스타일의 차이
+
+    컴포넌트는 필요에 의해서 리액트 네이티브에 의해 재랜더링 됨
+    재렌더링은 상황에 따라 반복해서 발생
+    인라인 스타일 방식 : 자바스크립트 엔진 쪽 스레드 -> UI 스레드로 브리지 경우해서 전송
+    But StyleSheet.create -> UI 스레드 쪽에 캐시 되기 때문에 속도 up
+    정적 스타일 객체는 StyleSheet.create으로 생성하는 것이 더 효율적이다.
+
+### Google material design, react-native-paper 패키지
+
+- 구글 색상표에서 세로줄의 색 이름은 색상을 HSL(Hue-Saturation-Light)방식으로 표현
+- Hue 값을 30도 씩 회전하여 만든 것
+- 가로줄은 Ligth를 조금 씩 어둡게 하며 만든검
+
+- react-native-paper 패키지 : Colors라는 심벌을 제공
+  - 이 심범을 이용하면 구글 색상표에서 Blue열 400번 색상을 Colors.blue500 처럼 표현이 가능
+
+> 설치
+
+    npm i react-native-vector-icons
+    npm i react-native-paper
+    npm i color
+    npm i -D @types/color
+
+### 구글 머테리얼 디자인 색상 테마와 color 패키지
+
+- 디자인은 크게 색상과 보조 색상으로 나눠서 앱의 테마 색상을 결정할 것을 권고
+- 앱의 테마 색상이 결정되면 글자가 모든 색상에서 잘 보일 수 있도록 글자 색상도 잘 결정해야함
 -
