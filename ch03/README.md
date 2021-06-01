@@ -63,7 +63,7 @@ npx react-native init ch03_1 --template react-native-template-typescript
 > 설치
 
     npm i react-native-vector-icons
-    npm i react-native-paper
+    npm i react-native-paper / yarn add react-native-paper
     npm i color
     npm i -D @types/color
 
@@ -71,4 +71,148 @@ npx react-native init ch03_1 --template react-native-template-typescript
 
 - 디자인은 크게 색상과 보조 색상으로 나눠서 앱의 테마 색상을 결정할 것을 권고
 - 앱의 테마 색상이 결정되면 글자가 모든 색상에서 잘 보일 수 있도록 글자 색상도 잘 결정해야함
--
+
+### View 컴포넌트와 CSS 박스 모델
+
+리액트 네이티브는 View 가 들어간 컴포넌트를 제공
+View 컴포넌트는 여러개의 리액트 네이티브 컴포넌트를 자식 요소로 가질 수 있고
+화면 UI의 레이아웃, 스타일링을 담당하는 중요한 역할을 함
+
+### Platform과 Dimensions API
+
+앱이 어느 쪽 폰에서 동작하는 지 확인 할 수 있는 API
+
+> Platform : 실행되는 디바이스의 os
+
+    console.log(Plaform.OS)
+
+> Dimensions : 실행되는 폰의 크기
+
+    const {width, height} = Dimensions.get('window)
+    이 값은 폰을 가로로 회전하더라도 (landscape 모드) 변하지 않음
+
+### View 컴포넌트의 backgroundColor 스타일 속성
+
+- 리액트 네이티브의 바탕색 : View가 들어가는 컴포넌트를 사용
+  - backgroundColor
+- 리액트 네이티브의 글자색 : Text가 들어가는 컴포넌트를 사용
+  - color
+
+> fontSize
+
+    R/N의 스타일 속성에는 반드시 number 타입이나 undefined로 설정해야함
+
+### width와 height 스타일 속성과 값 설정 방법
+
+CSS 박스 모델을 적용한 컴포넌트를 사용하여 width와 height 스타일 속성으로 자신의 크기를 설정 가능
+
+- width, height 속성값에는 다음 4가지 방법 중 하나 사용
+
+1. 명시적 width, height를 설정하지 않고 리액트 네이티브의 기본 설정 방식을 따르는 방법
+1. 픽셀(pixel, px) 단위의 숫자는 직접 설정하는 방법
+1. 부모 요소의 width, heigth 기준으로 자식 컴포넌트의 크기를 퍼센트(%)로 설정하는 방법
+1. flex 속성을 사용하여 여러 자식 컴포넌트가 부모 컴포넌트의 크기를 분할하여 가지는 방법
+
+### View의 기본 wdith 값과 height값
+
+SafeAreaView와 같은 View 컴포넌트에 width, height 설정하지 않을 시
+
+- width : 부모 컴포넌트의 width 그대로 설정
+- height : 자식 요소를 수평으로 배치했을 때는 자식 요소 중 가장 높은 요소의 height 값
+
+  - 수직 : 수직으로 배치했을 때는 자식 요소의 height 값을 모두 더한 값으로 설정
+
+- 이런 이유로 SafeArea의 높이는 수직으로 배열된 자식 요소 3개의 높이를 모두 더한 값
+
+### 명시적으로 픽셀 단위의 값을 설정하는 방법
+
+- Dimensions API를 이용해 얻는 폰의 크기를 width와 height로 설정이 가능
+
+```js
+  SafeAreaView: {
+    backgroundColor: Colors.blue500,
+    height,
+  },
+```
+
+> 타입스크립트 문법
+
+    변수 이름과 속성 이름이 같을 경우 변수를 생략 가능하다.
+    height : hegiht -> height
+
+### 부모 요소의 크기를 기준으로 퍼센트 설정 법
+
+SafeAreaView의 부모 컴포넌트는 App
+App과 같은 사용자 컴포넌트는 렌더링에 참여하지 않고
+리액트 네이티브 코어 컴포넌트만 화면에 직접 랜더링함
+
+- 랜더링 관점에서 볼 시 SafeAreaView의 부모 컴포넌트는 App이 아닌 네이티 쪽 모듈에서 생성된
+- 자바나 오브젝티브 -c로 구현한 **네이티브 컴포넌트**
+- 위의 컴포넌트의 크기 === 폰의 크기
+- Dimensions.get('window')의 반환값은 네이티브 쪽 최상위 컴포넌트의 크기
+
+- CSS 에서 퍼센트의 값은 항상 부모 컴포넌트의 기준으로 함
+
+### flex 스타일 속성
+
+View가 들어간 컴포넌트 width, height 스타일 속성값을 어떻게 설정하는지 알아봄
+
+- width, height 속성 설정 대신 flex 스타일 속성 1 설정 시
+  - height : '100%' 효과가 발생
+- flex : 1 -> height : '100%'
+- flex : 0.5 -> height : '50%'
+- SafeAreaView의 크기를 네이티브 쪽 부모 요소의 크기와 똑같게 하려면
+  - SafeAreaView의 flex 스타일 속성에 1이란 값
+
+> flex와 widht, heigth 같이 사용
+
+    같이 사용하게 되면 width와 height의 적용순위 > flex
+    컴포넌트의 height는 부모요소의 flex를 따라가지 않음!!!
+
+### margin 스타일 속성
+
+View가 들어간 컴포넌트 뿐만이 아닌 대부분의 코어 컴포넌트는 margin이라는 속성을 설정가능
+margin 스타일 속성은 부모/자식 간 혹은 이웃한 형제 요소 간의 간격을 조정
+
+- margin -> 10% 위,아래,좌우, 10퍼센트 씩 떨어짐
+- marginLeft = marginRight인 상황에 사용가능 -> marginHorizontal
+- marginTop = marginBottom -> marinVertical
+- marginHorizontal = marginVertical -> margin
+- 이웃한 형제 컴포넌트 끼리는 기준으로 픽셀씩 떨어짐
+
+### padding 스타일 속성
+
+padding 스타일 속성은 부모/자식 간의 관계에서 **부모 컴포넌트** 쪽에 적용 하는 스타일 속성
+대부분은 부모 컴포넌트 내부에 자식 컴포넌트를 배치할 때
+자식이 자신의 영역을 다 채우지 않는 것이 보기 좋아보임
+
+- padding 을 사용하여서 자신으로 부터 얼마나 자식이 떨어져있는지 확인이 가능
+- paddingLeft === paddingRight -> paddingHorizontal
+- paddingTop === paddingBottom -> paddingVertical
+
+### border 관련 스타일 속성
+
+리엑트 네이티브 코어 컴포넌트는 대부분의 자신 영역의 경계를 설정 가능하도록 스타일 속성 사용 가능
+
+| 속성         | 의미                                                                        |
+| ------------ | --------------------------------------------------------------------------- |
+| borderWidth  | border 넓이를 의미하며 borderLW, RW, TW, BW Width 속성을 사용하여 세부 설정 |
+| borderColor  | border 색상을 의미하며 위와 같이 Color 속성을 이용하여 세부설정             |
+| borderRadius | 모서리의 둥근 정도를 의미                                                   |
+| borderStyle  | 실선, 점선 등 border 스타일 의미                                            |
+
+> ios와 안드로이드 padding 차이
+
+    안드로이드에서 SafeAreaView -> 단순히 View로 동작
+    but IOS -> View가 들어간 컴포넌트지만 padding 스타일 속성은 적용되지 않음
+
+### Platform.select 메서드
+
+- 운영체제별로 다른 값을 적용시켜서 이 padding 값이 다르게 나오는 오류를 해결한다.
+
+```js
+paddingLeft: Platform.select({ ios: 0, android: 20 });
+```
+
+- ios -> padding 값 먹지 않기 때문에 margin 값으로 해결
+- android -> ios와 화면을 맞추기 위해서 padding을 사용
