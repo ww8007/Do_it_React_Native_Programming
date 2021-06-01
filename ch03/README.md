@@ -227,3 +227,40 @@ paddingLeft: Platform.select({ ios: 0, android: 20 });
 
     npm i faker
     npm i -D @types/color @types/faker
+
+### 배경으로 사용할 이미지 내려받기
+
+unsplash.com
+
+### ImageBackground 코어 컴포넌트 사용하기
+
+```js
+import { ImageBackground } from "react-native";
+```
+
+```js
+<ImageBackground style={{flex: 1}} source={require('./src/assets/images/bj.jpg')}>
+```
+
+> base64 인코딩 방식 이미지 삽입
+
+    Node.js가 기본 제공하는 require API는 대상 파일이 이미지라면 base64로 인코딩된 문자열을 반환
+    리엑트 네이티브 앱에서 이미지 파일은 자바스크립트 코드에 삽입된 형태로 배포됨
+
+- 리액트 네이티브 Image가 포함된 Image나 ImageBackground 컴포넌트는 항상
+- source속성에 requrie를 사용하여 읽는 방식으로 파일을 설정해야 함
+- 또한 반드시 width, height 스타일 속성 값을 지정해야함
+- flex로 대체 가능
+
+- ImageBackgound는 화면 전체를 덮는 방식으로 사용하는 사용하는 컴포넌트
+- flex: 1 스타일 -> width, height 지정
+- 이름에 View가 없지만 View가 들어간 컴포넌트 처럼 자식을 가질 수 있음
+
+### Image 코어 컴포넌트
+
+- Image 코어 컴포넌트는 ImageBackground 처럼 이미지 파일을 화면에 렌더링 하는 기능 제공
+- Image는 ImageBackground와 달리 자식 컴포넌트를 가질 수 없음
+- Image, ImageBackground에 앱의 자원이 아닌 원격지 서버에서 받아야 하는 경우
+    - {uri: 이미지_파일_웹_주소}
+
+

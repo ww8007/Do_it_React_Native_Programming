@@ -1,44 +1,24 @@
 import React from 'react';
-// prettier-ignore
-import {
-  StyleSheet,
-  Text,
-  SafeAreaView,
-  Platform,
-  Dimensions,
-  View,
-} from 'react-native';
-import {Colors} from 'react-native-paper';
-import Color from 'color';
+import {StyleSheet, SafeAreaView, Image, ImageBackground} from 'react-native';
 
-const {width, height} = Dimensions.get('window');
+import * as D from './src/data';
 
+const avatarUrl = D.raddomAvatarUrl();
+const avatarSize = 50;
 export default function App() {
   return (
-    <SafeAreaView style={[styles.SafeAreaView]}>
-      <Text style={styles.text}>os: {Platform.OS}</Text>
-      <Text style={styles.text}>width: {width}</Text>
-      <Text style={styles.text}>height: {height}</Text>
-      <View style={[styles.box, styles.border]} />
+    <SafeAreaView style={styles.flex}>
+      <ImageBackground
+        style={styles.flex}
+        source={require('./src/assets/images/image.jpg')}>
+        <Image source={{uri: avatarUrl}} style={styles.image} />
+      </ImageBackground>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  SafeAreaView: {
-    backgroundColor: Colors.blue500,
-    height: '100%',
-  },
-  text: {
-    fontSize: 20,
-    color: Color(Colors.blue500).alpha(0.7).lighten(0.9).string(),
-  },
-  box: {
-    width: '70%',
-    height: 100,
-    backgroundColor: 'white',
-    marginBottom: 10,
-    marginLeft: Platform.select({ios: 20, android: 0}),
-  },
-  border: {borderWidth: 10, borderColor: Colors.lime500},
+  flex: {flex: 1},
+  ImageBackground: {padding: 10},
+  image: {width: avatarSize, height: avatarSize, borderRadius: avatarSize / 2},
 });
