@@ -341,7 +341,55 @@ Alert과 같은 API 두가지가 있음
 - 여러개의 Person 컴포넌트 생성 후 person 속성 전달 시 화면에서 모두 볼 수 없게 됨
 - 이를 해결하기 위해서 ScrollView 사용
 
-### 컴포넌트의 이벤트 속성 이해하기
+## 컴포넌트의 이벤트 속성 이해하기
 
 - npx react-native init ch02_4 --template react-native-template-typescript
 - npx react-native init ch02_4 --template typescript
+
+### 이벤트 속성과 이벤트 처리기
+
+onPress, onChangeText처럼 이름에 on이라는 접두사가 붙는 속성 -> 이벤트 속성
+
+- 이벤트 속성에는 항상 콜백함수가 존재 해야함
+
+  - 이벤트 콜백 함수 또는 이벤트 처리기(event handler)라고 부름
+
+- Button 코어 컴포넌트
+
+```js
+// 버튼 지정
+<Button onPress={콜백_함수}/>
+// 콜백 함수 형태
+콜백_함수 = () => {함수 몸통}
+```
+
+> 여기서 알아보는 콜백 함수의 개념
+
+    Callback 사용 이유 : 비동기적 프로그래밍
+    이벤트가 발생했거나 특정 시점에 도달 시 시스템에서 호출하는 함수를 뜻함
+    1. 사용자 이벤트 처리
+    1. 네트워크 응답 처리
+    1. 파일 읽고 쓰기
+    1. 시간 지연
+
+### Alert API
+
+리액트 네이티브는 Alert API를 제공
+리액트 네이티브에서 API는 JSX 구문에서 제공되는 코어 컴포넌트와 달리 타입스크립트 코드에서 사용하는 기능을 의미
+
+```js
+import { Alert } from "react native";
+```
+
+### 터처블 코어 컴포넌트
+
+- 버튼의 문제점 : 디자인에 융통성이 없음
+
+```js
+import {TouchableOpacity, TouchableHighlight} from 'react-native'
+```
+
+> 특징
+    1. 컴포넌트 영역 터치 시 onPress 이벤트 속성에 설정된 이벤트 핸들러 콜백 함수 호출
+    1. 단 한개의 자식 컴포넌트만 가능
+
