@@ -386,10 +386,44 @@ import { Alert } from "react native";
 - 버튼의 문제점 : 디자인에 융통성이 없음
 
 ```js
-import {TouchableOpacity, TouchableHighlight} from 'react-native'
+import { TouchableOpacity, TouchableHighlight } from "react-native";
 ```
 
 > 특징
+
     1. 컴포넌트 영역 터치 시 onPress 이벤트 속성에 설정된 이벤트 핸들러 콜백 함수 호출
     1. 단 한개의 자식 컴포넌트만 가능
+
+- 사실 Text 컴포넌트는 onPress 이벤트 속성을 제공함
+
+### Text 코어 컴포넌트의 onPress 이벤트 속성
+
+- Text 컴포넌트도 onPress 이벤트 속성을 제공
+- 다만 터치 했을 시 아무런 시각 효과가 없다는 것이 차이
+
+### TextInput 코어 컴포넌트
+
+- TextInput 컴포넌트 특징
+
+1. defaultValue 초기값 설정 가능
+1. 입력된 텍스트는 value 속성 값으로 얻을 수 있음
+1. 텍스트 입력 시 onChangeText 이벤트 처리기 실행
+1. placeholder 속성 사용 시 표시문구 표시 가능
+1. editable 속성 false 입력 못하게 가능
+1. keyboardType 설정 가능
+1. 포커를 갖는 focus 메소드, blur 메서드
+1. 텍스트 입력 가능 상태 -> onFocus, 입력 불가 -> onBlur 이벤트 호출
+1. 텍스트 입력 끝날 시 onEndEditing 이벤트 호출
+1. 자식 요소를 갖지 못함
+
+- onChnageText 시그니처
+  ```js
+  onChangeText(text: string) => void
+  ```
+
+> 함수 시그니처
+    타입스크립트 언어에서 모든 변수는 어떤 타입을 가짐
+    함수 또한 어떤 타입을 가지게 됨
+    함수 선언문에서 함수 이름만 제외한 부분을 -> 함수타입
+    이를 함수 시그니처라고 함
 
