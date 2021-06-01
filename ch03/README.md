@@ -325,3 +325,27 @@ App.tsx의 View 컴포넌트 스타일을 자세히 보면 flex: 1 스타일 속
 ### 컴포넌트 배치 관련 스타일 속성 탐구하기
 
 npx react-native init ch03_4 --template react-native-template-typescript
+
+> 설치
+
+    yarn add react-native-vector-icons react-native-paper
+    yarn add color faker
+    yarn add -D @types/react-native-vector-icons @types/color @types/faker
+    npx react-native link react-native-vector-icons
+
+### flex: 1과 height: '100%'의 차이
+
+- flex : 부모 컴포넌트의 높이 중 여분이 있을 때 이 여분을 모두 가져오는 스타일 종속성
+- Content View에 flex: 1 스타일 속성을 부여하면
+- Content의 형제 요소인 TopBar, BottomBar의 높이가 반영된 부모 컴포넌트의 높이의 여분을 가져옴
+- But height: '100%'
+- TopBar와 BottomBar 높이와 무관하게 부모 컴포넌트의 높이를 모두 가져옴
+
+  - Dimensions.get('window').height와 동일
+  - 디바이스 높이를 전체 가져옴
+  - 결과적으로 BottomBar가 화면에 나타나지 못하게 됨
+
+- [flex: 1]<img width="351" alt="스크린샷 2021-06-01 오후 11 32 51" src="https://user-images.githubusercontent.com/54137044/120341347-c6241780-c331-11eb-8c8e-53c1af85f245.png">
+- [height: '100%']![image](https://user-images.githubusercontent.com/54137044/120341712-13a08480-c332-11eb-8dbc-b095c275cd7d.png)
+
+### 여러 개의 형제 컴포넌트가 모두 0이 아닌 flex 값을 가질 때
