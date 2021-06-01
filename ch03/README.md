@@ -216,3 +216,14 @@ paddingLeft: Platform.select({ ios: 0, android: 20 });
 
 - ios -> padding 값 먹지 않기 때문에 margin 값으로 해결
 - android -> ios와 화면을 맞추기 위해서 padding을 사용
+
+### 자원과 아이콘 사용하기
+
+- 모바일 앱 개발에서 자원은 앱에 포함하여 배포하는 이미지, 폰트, 아이콘 등의 파일
+- 모바일 앱은 통신이 끊어지는 오프라인 상태를 염두에 두어야함
+- 필수 자원은 앱에 포함해 배포해야 함
+
+> 설치
+
+    npm i faker
+    npm i -D @types/color @types/faker
