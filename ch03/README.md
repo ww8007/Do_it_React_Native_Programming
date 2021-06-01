@@ -322,4 +322,6 @@ App.tsx의 View 컴포넌트 스타일을 자세히 보면 flex: 1 스타일 속
 - But View가 flex로 된다면 부모 컴포넌트 heigth 여분이 모두 flex: 1인 컴포넌트의 높이가 됨
 - 높이 여분을 자신의 높이로 삼기 때문에 ICON은 화면 아래에 위치하게 됨
 
-### 컴포넌트 배치 관련 스타일 속성 탐
+### 컴포넌트 배치 관련 스타일 속성 탐구하기
+
+npx react-native init ch03_4 --template react-native-template-typescript
