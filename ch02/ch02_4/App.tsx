@@ -1,8 +1,15 @@
 // @flow
 import * as React from 'react';
 
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, Alert, Button} from 'react-native';
 
 export default function App() {
-  return <SafeAreaView />;
+  return (
+    <SafeAreaView>
+      <Button
+        title="Home"
+        onPress={() => Alert.alert('home pressed', 'message')}
+      />
+    </SafeAreaView>
+  );
 }
