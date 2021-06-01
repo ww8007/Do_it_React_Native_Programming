@@ -422,8 +422,10 @@ import { TouchableOpacity, TouchableHighlight } from "react-native";
   ```
 
 > 함수 시그니처
+
     타입스크립트 언어에서 모든 변수는 어떤 타입을 가짐
     함수 또한 어떤 타입을 가지게 됨
     함수 선언문에서 함수 이름만 제외한 부분을 -> 함수타입
     이를 함수 시그니처라고 함
 
+### 컴포넌트 스타일링
