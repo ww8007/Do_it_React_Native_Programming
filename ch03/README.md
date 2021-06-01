@@ -261,6 +261,65 @@ import { ImageBackground } from "react-native";
 - Image 코어 컴포넌트는 ImageBackground 처럼 이미지 파일을 화면에 렌더링 하는 기능 제공
 - Image는 ImageBackground와 달리 자식 컴포넌트를 가질 수 없음
 - Image, ImageBackground에 앱의 자원이 아닌 원격지 서버에서 받아야 하는 경우
-    - {uri: 이미지_파일_웹_주소}
+  - {uri: 이미지*파일*웹\_주소}
 
+### 폰트 직접 설치하고 사용하기
 
+이번엔 폰트를 내려받아 src/assets/fonts 디렉터리에 설치
+구글에서 'Dancing Script'로 찾은 다음 다운 받아서 사용
+
+### react-native.config.js
+
+- 자원 파일을 앱에 포함하려면 npx react-native link라는 명령을 실행해야 함
+- react-native.config.js <- 이 파일이 있어야 위의 명령 실행 가능
+
+> project : 필수 키
+
+    이 project 키는 link 명령이 ios와 안드로이드 디렉토리를 대상을 동작 한다는 것을 지정
+
+### react-native link 명령으로 폰트 자원 링크하기
+
+> 설치
+
+    npx react-native link
+
+### fontFamily 스타일 속성
+
+지금까지의 Text 컴포넌트는 특별한 폰트 설정 없이 텍스트를 화면에 출력
+-> 네이티브가 기본 폰트를 제공하기 때문
+
+```js
+fontFamily: "파일_확장자가_없는_폰트_파일_이름";
+```
+
+- 부모 요소에는 자식 요소의 스타일을 설정하지 못한다.
+
+### fontWeight 스타일 속성
+
+- fontWeight 스타일 속성을 사용하여 글꼴 두께를 바꿀 수 있음
+- 문자열로 지정해야 하는 것이 특징이다.
+
+### textAlign 스타일 속성
+
+- Text 컴포넌트에 width, height 스타일 속성을 적용하면 다음 화면처럼
+- 전체 텍스트 크기와 Text 컴포넌트 크기에 Text 불일치 width, height를 설정하지 않더라도 텍스트가 길어서 여러줄로 출력될 때도 발생
+- width, height 스타일 속성을 적용하면 다음 화면처럼 전체 텍스트 크기와 Text 컴포넌트 크기에 불일치가 생김
+- width, height를 설정 하지 않더라도 여러줄로 출력 때도 발생
+
+1. left
+1. center
+1. right
+
+### ios 문제점
+
+아이콘이 텍스트 아래에 렌더링 되는 것이 아닌 화면 아래쪽에 렌더링 됨
+
+### flex: 1의 의미
+
+App.tsx의 View 컴포넌트 스타일을 자세히 보면 flex: 1 스타일 속성이 설정된 것을 확인 가능
+
+- ImageBackground와 같은 부모 컴포넌트의 Image, View, Icon등 자식 컴포넌트 중에 flex 스타일 속성에 0이 아닌 값을 가지는 컴포넌트가 없다면 여분이 그대로 남음
+- But View가 flex로 된다면 부모 컴포넌트 heigth 여분이 모두 flex: 1인 컴포넌트의 높이가 됨
+- 높이 여분을 자신의 높이로 삼기 때문에 ICON은 화면 아래에 위치하게 됨
+
+### 컴포넌트 배치 관련 스타일 속성 탐
