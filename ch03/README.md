@@ -442,3 +442,27 @@ overflow 스타일 속성은 전체 콘텐츠의 크기가 컴포넌트 크기�
 - contentContainerStyle : 스크롤 대상 콘텐츠 컴포넌트에 적용되는 속성
 - contentContainerStyle : flex가 있으면 동작하지 않음
 - ScrollView 가 style이 아닌 contentContainerStyle을 가지도록 유의!!!
+
+### 화면에 뜬 효과 주기
+
+깃털 아이콘 이미지 위에 뜬듯한 플로팅 액션 버튼
+
+- 이런 FAB 효과를 주기 위해 postion, left, rifght, top, bottom 효과 이해
+
+### React.Fragment 컴포넌트와 <></> 단축 구문
+
+- 화면에 뜬 효과를 주려면 아이콘이 SafeAreaView의 자식 컴포넌트이면 안됨
+- 그런데 지금 까지 모든 내용은 SafeAreaView가 최상위 컴포넌트 였음
+  > 그렇기에 Fragment 컴포넌트 사용
+
+### left, right, top, bottom과 position 속성
+
+- 컴포넌트가 렌더링되는 위치를 바꾸고 싶을 때 사용
+- position은 속성값을 'absolute'로 지정해야 컴포넌트에 반영
+- 안드로이드와 ios 속성 값이 다르기 때문에
+- ios bottom : 100 android bottom : 80
+
+### 재사용할 수 있는 컴포넌트 만들기
+
+- Json.stringfy가 아닌 실제로 컴포넌트를 스타일링 하는 법
+-
