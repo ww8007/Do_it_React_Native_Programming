@@ -349,3 +349,65 @@ npx react-native init ch03_4 --template react-native-template-typescript
 - [height: '100%']![image](https://user-images.githubusercontent.com/54137044/120341712-13a08480-c332-11eb-8dbc-b095c275cd7d.png)
 
 ### 여러 개의 형제 컴포넌트가 모두 0이 아닌 flex 값을 가질 때
+
+다음 코드에서는 10 ~ 18행 3개 View의 flex 스타일 속성 값을 각각 0,1,2
+
+- flex : 0 -> 부모 컴포넌트의 높이를 나눠갖지 않고 자식 컴포넌트인 Text의 높이를 자신의 높이로 가지겠다.
+- flex : 1 -> 여분 높이를 각각 여분높이 / (1+2)x1
+- flex : 2 -> 여분 높이를 각각 여분높이 / (1+2)x2 로 나누어 가짐
+- flex : 100, 200 으로 설정하여도 같은 결과가 나옴 -> 비율이 중요하다!!!
+
+### flexDirection 속성
+
+플랙스 박스 레이아웃은 부모 컴포넌트의 크기가 고정일 때 자식 컴포넌트를 자신의 영역에 배치하는 기법
+
+- 플랙스 박스 레이아웃은 자식컴포넌트 배치할 때 수평이나 수직 방향 한쪽으로 가능
+- column : 수직
+- row : 수평
+
+## yarn ios 오류 해결
+
+1. ios -> Resources에서 폰트 모두 삭제
+2. Remove references
+
+### alignItems 스타일 속성
+
+- 이름대로 부모 요소의 높이나 넓이에 여분이 있을 때 이 여분을 이용하여
+- 자식 요소의 배치 간격을 조정하는데 사용
+
+- left, center, right, stretch
+- stretch : 부모 컴포넌트의 크기에 여분이 있으면 자식 컴포넌트의 크기를 늘림
+
+- alignItems는 flexDirection 속성값에 따라 동작방향이 달라짐
+- flexDirection : row -> 수평방향
+- flexDirection : column -> 수직방향
+
+### justifyContent
+
+- 기본값 : flex-start
+- 이또한 flexDirection에 영향을 받음
+
+> 종류
+
+    1. flex-start
+        - 왼쪽 시작
+    1. center
+    1. flex-end
+    1. space-around
+    1. space-between
+    1. space-evenly
+
+- flex-start, flex-end, center
+  - 부모 요소의 수평방향 여백을 자식 요소간의 간격에 전혀 반영 x
+- but 접두사가 'space'의 경우
+
+  - 부모 요소의 여백을 자식 요소의 간격에 반영한다.
+
+- space-around vs between
+  - 폰 좌우측에 padding 적용 여부
+- spze evenly
+  - 부모 컴포넌트 넓이 - (자식 컴포넌트 넓이 합)
+  - 공백수가 컴포넌트 수보다 하나 많으므로
+  - 자식컴포넌트 수 + 1 로 나누어서 여분 넓이 균등하게 부여
+
+###
