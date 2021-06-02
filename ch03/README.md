@@ -410,4 +410,35 @@ npx react-native init ch03_4 --template react-native-template-typescript
   - 공백수가 컴포넌트 수보다 하나 많으므로
   - 자식컴포넌트 수 + 1 로 나누어서 여분 넓이 균등하게 부여
 
-###
+### flexWrap 스타일 속성
+
+20개의 아바타 랜더링
+
+- 줄을 바꿔가면서 정상적으로 렌더링 한다는데 의미
+- flexWrap : nowrap
+- wrap, wrap-reverse 설정 가능
+
+### overflow 스타일 속성
+
+overflow 스타일 속성은 전체 콘텐츠의 크기가 컴포넌트 크기보다 클 때 이를 어떻게 할지 결정 하는데 사용하는 속성
+
+- 3개 값 중 하나 설정 가능 기본 : visible
+
+> 설정
+
+    1. visible
+    1. hidden
+    1. scroll
+
+- hidden의 경우 바깥쪽에 렌더링 되지 않음
+- 앱의 경우 overflow: scroll 설정해도 스크롤 효과는 발동하지 않음
+- ScrollView : FlatList
+
+> 리엑트 네이티브에서 스크롤은 ScrollView나 FlatList 코어 컴포넌트만 사용가능
+
+### ScrollView의 contetnContainerStyle 속성
+
+- ScrollView는 다른 코어 컴포넌트와 달리 style 이외에 contentContainerStyle 속성을 별도로 제공
+- contentContainerStyle : 스크롤 대상 콘텐츠 컴포넌트에 적용되는 속성
+- contentContainerStyle : flex가 있으면 동작하지 않음
+- ScrollView 가 style이 아닌 contentContainerStyle을 가지도록 유의!!!

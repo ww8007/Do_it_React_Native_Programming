@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 5,
-    backgroundColor: Colors.blue900,
+    backgroundColor: Colors.blue200,
   },
   text: {fontSize: 20, textAlign: 'center'},
   avatar: {width: 40, height: 40, borderRadius: 20},

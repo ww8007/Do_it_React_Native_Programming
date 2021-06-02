@@ -1,27 +1,30 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Image, ScrollView} from 'react-native';
 import {Colors} from 'react-native-paper';
 import * as D from '../data';
 
+const avatars = D.makeArray(200).map(notUsed => D.raddomAvatarUrl());
 const title = 'Content';
-export default function CopyMe() {
-  return (
-    <View style={[styles.view]}>
-      <Text style={[styles.text]}>{title}</Text>
-      <View style={[{flex: 0, backgroundColor: Colors.red500}]}>
-        <Text>flex: 0</Text>
-      </View>
-      <View style={[{flex: 1, backgroundColor: Colors.green500}]}>
-        <Text>flex: 1</Text>
-      </View>
-      <View style={[{flex: 2, backgroundColor: Colors.blue500}]}>
-        <Text>flex: 2</Text>
-      </View>
+export default function Content() {
+  const children = avatars.map((avatarUrl, index) => (
+    <View key={index.toString()} style={styles.avartarView}>
+      <Image style={styles.avartar} source={{uri: avatarUrl}} />
     </View>
+  ));
+  return (
+    <ScrollView contentContainerStyle={[styles.view]}>{children}</ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  view: {flex: 1, padding: 5, backgroundColor: Colors.blue900},
-  text: {fontSize: 20, color: 'white'},
+  view: {
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 5,
+    backgroundColor: Colors.blue900,
+  },
+  text: {fontSize: 20},
+  avartarView: {padding: 3},
+  avartar: {width: 50, height: 50, borderRadius: 25},
 });
