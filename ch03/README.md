@@ -462,7 +462,44 @@ overflow 스타일 속성은 전체 콘텐츠의 크기가 컴포넌트 크기�
 - 안드로이드와 ios 속성 값이 다르기 때문에
 - ios bottom : 100 android bottom : 80
 
+## ch03.5
+
 ### 재사용할 수 있는 컴포넌트 만들기
 
+- npx react-native init ch03_5 --template react-native-template-typescript
 - Json.stringfy가 아닌 실제로 컴포넌트를 스타일링 하는 법
--
+
+- yarn add react-native-vector-icons react-native-papaer color faker
+- yarn add -D @types/react-native-vector-icons @types/color @types/faker
+- npx react-native link react-native-vector-icons
+- npx pod-install
+- yarn add moment moment-with-locales-es6
+
+### ScrollView 대신 FlatList 코어 컴포넌트 사용
+
+- 배열로 만든 아이템은 ScrollView 컴포너트를 사용하여 화면에 렌더링
+- 리액트 네이티브는 렌더링에 최적화된 FlatList 코어 컴포넌트를 제공
+- 똑같은 컴포넌트를 여러 개 렌더링 할 때 FlatList를 사용하는 것이 속도가 빠름
+
+- renderItem이란 속성을 제공함
+- children을 만드는 로직을 다음처럼 renderItem 속성 제공
+- 타입스크립트 관점에서 타입 T의 배열 T[]를 data 속성에 설정하려면
+- renderItem에는 ({item}: {item: T}) => {}
+- 즉 T타입 데이터 item이란 이름의 속성이 있는 객체를 매개변수로 하는 콜백 함수를 설정
+- renderItem이 반환하는 리액트 요소는 key 속성을 설정하는 부분이 빠져있음
+- Flatlist는 keyExtractor 속성에 item과 index값이 매개변수인 콜백함수를 지정해서 renderItem이 반환하는 컴포넌트의 key 속성에 설정할 값을 얻음
+
+```js
+<FlatList
+  data={people}
+  rederItem={({ item }) => <Person person={item} />}
+  keyExtractor={(item, index) => item.id}
+/>
+```
+
+- keyExtractor -> item.id 반환
+- id가 없는 데이터라면 index.toString 반환 가능
+
+- ItemSeparatorComponent라는 속성을 제공
+- 이 속성에 설정한 콜백 함수가 반환하는 컴포넌트를 아이템과 아이템 간의
+- 구분자 역할을 하는 컴포넌트로 삽입
