@@ -503,3 +503,69 @@ overflow 스타일 속성은 전체 콘텐츠의 크기가 컴포넌트 크기�
 - ItemSeparatorComponent라는 속성을 제공
 - 이 속성에 설정한 콜백 함수가 반환하는 컴포넌트를 아이템과 아이템 간의
 - 구분자 역할을 하는 컴포넌트로 삽입
+
+### moment 패키지 기능 사용하기
+
+- 기본적으로 js, ts는 Date클래스를 제공
+- new 연산자를 애용해 새 데이터 생성
+
+### 재사용 가능한 컴포넌트
+
+IconText 처럼 범용 적으로 사용할 수 있는 사용자 컴포넌트를 구성하는게 좋음
+
+- 하나의 목적에 부합하는 것이 아닌 어떤 패턴의 코드에도 항상 적용할 수 있는 사용자 컴포넌트를
+- 재사용할 수 있는 컴포넌트라고 부름
+
+- 타입스크립트를 재사용할 수 있는 컴포넌트를 만드려면 ReactNode라는 타입
+- children이라는 속성, 그리고 수신한 속성을 한꺼번에 컴포넌트에 전달하는 기법 익숙
+
+### children 속성과 ReactNode 타입
+
+- 재사용할 수 있는 컴포넌트 만들기
+
+```js
+import type { FC, ReactNode } from "react";
+
+type SomeComponentProps = {
+  children?: ReactNode,
+};
+
+export const SomeComponent: FC<SomeComponentProps> = ({ children }) => {
+  return <View>{children}</View>;
+};
+```
+
+- 위와 같이 구성하면 자식 컴포넌트를 자유롭게 바꿔가며 자식 컴포넌트에는 없는 기능을 재사용할 수 있도록 가능
+
+### ComponentProps 타입
+
+- ComponentProps 타입 사용법
+- 속성*타입 = ComponentProps<typeof 컴포넌트*이름>
+
+> 타입을 알아내서 적용하는 용도로 사용
+
+### JSX{...props}구문
+
+TouchableOpacity의 onPress 이벤트 속성에 다음처럼 onPress 속성을 설정한 코드를 본 적이 있음
+
+- TouchableViewProps 타입을 선언하고 TouchableOpacityProps 부분을 얻은 다음
+- TouchableOpacity 속성을 한꺼번에 넘겨줌
+
+### 잔여 연산자
+
+점을 연이어 3개 사용하는 잔여 연산자 사용
+
+- 변수 속성중 제시한 속성 나머지 속성을 별도의 속성을 저장하고 싶다면 잔여 연산자 ... 사용
+
+### FC타입과 children 속성
+
+- FC타입은 ReactNode 타입인 children 속성을 포함
+- 타입 선언으로 충분함
+
+```js
+type TouchableOpacityProps = ComponentProps<typeof TouchableOpacity>;
+```
+
+### StyleProp 타입
+
+react-native 패키지는 다음과 같은 StyleProp 타입
